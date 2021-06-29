@@ -1,0 +1,87 @@
+<!doctype html>
+{% load static %}
+{% load thumbnail %}
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="description" content="Сайт волонтерской организации ЭКА">
+		<meta name="keywords" content="психология, яндекс, весна, рефераты">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="shwan">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	</head>
+	<body>
+		<header class="header">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
+				<img src='media/logoEKAAzov.png' width="75" height="37">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsDefault">
+					<ul class="navbar-nav bd-navbar-nav flex-row">
+						<li class="nav-item active">
+							<a class="nav-link" href="{% url 'index' %}">Главная <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Об организации</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+						{% if user.is_authenticated %}
+						<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" data-toggle="dropdown"
+								href="#" role="button" aria-haspopup="true"
+								aria-expanded="false">{{ user.username }}{% if user.image %}<img id="round" src="{% thumbnail user.image 'avatar' %}">{% else %}<img id='round' src="media/empty.jpg">{% endif %}</a>
+								<div class="dropdown-menu">
+										<a class="dropdown-item" href="{% url 'profile' %}">Мой профиль</a>
+										<a class="dropdown-item" href="{% url 'profile_change' %}">
+										Изменить личные данные</a>
+										<a class="dropdown-item" href="{% url 'password_change' %}">
+										Изменить пароль</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+								</div>
+						</li>
+						{% else %}
+						<li class="nav-item"><a class="nav-link" href="{% url 'registration' %}">Стать волонтером</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Вход</a></li>
+						{% endif %}
+					</ul>
+				 </div>
+			</nav>
+		</header>
+		<main role="main">
+			<div class="jumbotron">
+				<div class="container">
+					{% block header %}
+					<h1 class="display-3">Экологическая орагнизация ЭКА Азов</h1>
+					<h4>Официальный сайт Автономной некоммерческой организации экологической направленности "ЭКА-Азов"</h4>
+						<p>Направления нашей работы:</p>
+						<p>♻Экологические инициативы, акции и проекты</p>
+						<p>♻Городские развлекательно-благотворительные мероприятия</p>
+						<p>♻Внедрение системы РСО</p>
+						<p>♻Работа с добровольцами</p>
+						<p>♻ЭКОобразование</p>
+					{% endblock %}
+				</div>
+			</div>
+		</main>
+		{% block content %}
+		{% endblock %}
+		<footer role="contentinfo" class="footer">
+			<div class="container">
+				<span class="text-muted">© ЭКА Азов</a>, 1900 - 2099. Все права защищены.</span>
+				<span class="text-muted"> <a href="https://vk.com/azov_eka">Вконтакте</a></span>
+			</div>
+		</footer>
+	</body>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</html>

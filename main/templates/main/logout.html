@@ -1,0 +1,10 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Выход{% endblock %}
+
+{% block header %}
+<h4 align='center'>Выход из системы</h4>
+{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'login' %}">Войти заново</a></p>
+{% endblock %}

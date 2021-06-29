@@ -1,0 +1,47 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load thumbnail %}
+
+
+{% block title %}ЭКА Азов{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% for event in events %}
+    <div class="col-md-6">
+      <img class="mr-3" src="{% thumbnail event.image 'default' %}">
+      <div>
+        <h4>{{ event.name }}</h4>
+        <p><a class="btn btn-secondary" href="{% url 'detail' pk=event.pk %}" role="button">Читать далее »</a></p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!--<table border="1">
+  <tr bgcolor='black'>
+    <th><font color="white">Имя</font></th>
+    <th><font color="white">Телефон</font></th>
+  </tr>
+  <th colspan="2">Члены организации</th>
+  {% for member in members %}
+  {% if member.status == 'a' %}
+  <tr>
+    <td>{{ member.name }}</td>
+    <td>{{ member.number }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+  <th colspan="2">Кандидаты</th>
+  {% for member in members %}
+  {% if member.status == 'b' %}
+  <tr>
+    <td>{{ member.name }}</td>
+    <td>{{ member.number }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table> -->
+{% endblock %}

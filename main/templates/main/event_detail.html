@@ -1,0 +1,27 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% load thumbnail %}
+
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block header %}
+<h4 align='center'>{{ event.name }}</h4>
+{% endblock %}
+
+{% block content %}
+<div class="center">
+  <img class="mr-3" src="{% thumbnail event.image 'default' %}">
+  <p>{{ event.description }}</p>
+  <p>{{ event.date }}</p>
+  {% if user.is_authenticated %}
+    {% if not followed and event.is_over != True %}
+      <a class="btn btn-success" role="button" href="{% url 'follow_event' pk=event.pk status='followed' %}">Записаться на мероприятие</a>
+    {% elif followed and event.is_over != True %}
+      <a type="button" class="btn btn-secondary" href="{% url 'follow_event' pk=event.pk status='unfollowed' %}">Отменить участие</a>
+    {% else %}
+      <p>Мероприятие завершено</p>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

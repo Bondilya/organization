@@ -1,0 +1,65 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}Профиль {{ user.username }}{% endblock %}
+
+
+{% block header %}
+<h4 align='center'>Профиль {{ user.username }} <img width='250' height=auto src="{% thumbnail user.image 'default' %}"></h4>
+{% endblock %}
+{% block content %}
+<div class='center'>
+  <p>Имя: {{ user.first_name }}</p>
+  <p>Фамилия: {{ user.last_name }}</p>
+  <p>Почта: {{ user.email }}</p>
+  <p>О Себе: {{ user.description }}</p>
+  {% if user.status %}
+    <p>Всего часов: {{ user.hours }}</p>
+    <p>Предстоящие мероприятия:</p>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Часы</th>
+      </tr>
+    </thead>
+    {% for event in events %}
+      {% if event.is_over == False %}
+        <tbody>
+          <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.hours }}</td>
+          </tr>
+        </tbody>
+      {% endif %}
+    {% endfor %}
+  </table>
+  <p>Прошедшие мероприятия:</p>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Название</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Часы</th>
+    </tr>
+  </thead>
+  {% for event in events %}
+    {% if event.is_over == True %}
+      <tbody>
+        <tr>
+          <td>{{ event.name }}</td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.hours }}</td>
+        </tr>
+      </tbody>
+    {% endif %}
+  {% endfor %}
+</table>
+{% else %}
+  <h6>Ваша заявка обрабатывается</h6>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load crispy_forms_tags %}
+
+{% block title %}Правка личных данных{% endblock %}
+
+{% block header %}
+<h4 align='center'>Правка личных данных пользователя {{ user.username }}</h4>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-6">
+      {{ form.first_name|as_crispy_field }}
+      {{ form.username|as_crispy_field }}
+    </div>
+  <div class="col-6">
+    {{ form.last_name|as_crispy_field }}
+    {{ form.email|as_crispy_field }}
+  </div>
+  <div class="col-6">
+    {{ form.description|as_crispy_field }}
+  </div>
+  <div class="col-6">
+    {{ form.image|as_crispy_field }}
+  </div>
+</div>
+<button type="submit" class="btn btn-success">Сохранить</button>
+</form>
+{% endblock %}

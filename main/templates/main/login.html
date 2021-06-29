@@ -1,0 +1,21 @@
+{% extends 'layout/basic.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Вход{% endblock %}
+
+
+{% block header %}
+<h4 align='center'>Вход</h4>
+{% endblock %}
+{% block content %}
+  {% if user.is_authenticated %}
+  <p>Вы уже выполнили вход</p>
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <input type="submit" value="Войти">
+  </form>
+  <p><a href="{% url 'password_reset' %}">Сброс пароля</a></p>
+  {% endif %}
+{% endblock %}
