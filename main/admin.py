@@ -10,6 +10,13 @@ class VolunteersAdmin(admin.ModelAdmin):
     fields = (('first_name', 'last_name'), 'email', 'hours', 'status', 'image', 'description', 'username', 'is_active')
 
 
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('name', 'get_volunteers', 'date', 'hours', 'is_over')
+    list_display_links = ('name',)
+    search_fields = ('name', 'date')
+    list_filter = ('is_over',)
+
+
 admin.site.register(Volunteer, VolunteersAdmin)
-admin.site.register(Event)
+admin.site.register(Event, EventAdmin)
 # Register your models here.

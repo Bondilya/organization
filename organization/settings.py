@@ -147,7 +147,7 @@ THUMBNAIL_ALIASES = {
             'size': (380, 380),
             'crop': 'scale',
         },
-        'avatar':{
+        'avatar': {
             'size': (25, 25),
             'crop': 'scale',
         },
