@@ -19,4 +19,6 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(Volunteer, VolunteersAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(Participant)
+admin.site.register(Waste)
 # Register your models here.

@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
-from django.views.generic.detail import DetailView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
@@ -30,12 +29,12 @@ def profile(request):
     return render(request, 'main/profile.html', context)
 
 
-class EventDetail(DetailView):
-    model = Event
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+# class EventDetail(DetailView):
+#     model = Event
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         return context
 
 
 def detail_event(request, pk):
@@ -49,6 +48,9 @@ def detail_event(request, pk):
         context = {'event': event, 'user': user, 'followed': followed}
     else:
         context = {'event': event, }
+    if event.name.lower().find('раздельный сбор'):
+        wastes = Waste.objects.filter(date=event.date)
+        context['wastes'] = wastes
     return render(request, 'main/event_detail.html', context)
 
 

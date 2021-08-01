@@ -23,5 +23,29 @@
       <p>Мероприятие завершено</p>
     {% endif %}
   {% endif %}
+  {% if wastes %}
+  <hr>
+  <h4>Наши участники</h4>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Имя</th>
+      <th scope="col">Макулатура(кг)</th>
+      <th scope="col">Пластик(кг)</th>
+      <th scope="col">Стекло(кг)</th>
+    </tr>
+  </thead>
+  {% for waste in wastes %}
+    <tbody>
+        <tr>
+          <td>{{ waste.participant.first_name }} {{ waste.participant.last_name }}</td>
+          <td>{{ waste.wastepapper }}</td>
+          <td>{{ waste.plastic }}</td>
+          <td>{{ waste.glass }}</td>
+        </tr>
+      </tbody>
+  {% endfor %}
+  </table>
 </div>
+{% endif %}
 {% endblock %}

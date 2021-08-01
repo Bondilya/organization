@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 from django.dispatch import Signal
 from django.contrib.auth.models import AbstractUser
 
@@ -18,7 +19,7 @@ class Bid(models.Model):
         verbose_name_plural = 'Члены организации'
 
     def __str__(self):
-        return f'{self.first_name} + {self.last_name}'
+        return f'{self.first_name} {self.last_name}'
 
 
 class Event(models.Model):
@@ -59,7 +60,34 @@ class Volunteer(AbstractUser):
         verbose_name_plural = 'Волонтёры'
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return f'{self.first_name} {self.last_name}'
+
+
+class Participant(models.Model):
+    first_name = models.CharField('Имя', max_length=50)
+    last_name = models.CharField('Фамилия', max_length=50)
+
+    class Meta:
+        verbose_name = 'Участник'
+        verbose_name_plural = 'Участники'
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class Waste(models.Model):
+    glass = models.FloatField('Стекло', validators=[validators.MinValueValidator(0)])
+    wastepapper = models.FloatField('Макулатура', validators=[validators.MinValueValidator(0)])
+    plastic = models.FloatField('Пластик', validators=[validators.MinValueValidator(0)])
+    participant = models.ForeignKey('Participant', on_delete=models.PROTECT)
+    date = models.DateField('Дата', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Отходы'
+        verbose_name_plural = 'Отходы'
+
+    def __str__(self):
+        return f'{self.participant.first_name} {self.participant.last_name}'
 
 
 user_registrated = Signal(providing_args=['instance'])
